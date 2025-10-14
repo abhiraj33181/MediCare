@@ -1,25 +1,33 @@
 'use client'
-import { Calendar, Stethoscope } from 'lucide-react';
+import { Bell, Calendar, Ghost, Settings, Stethoscope, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react'
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { DropdownMenu, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '../ui/dropdown-menu';
 
 interface HeaderProps {
     showDahsboardNav? : Boolean
 }
 
 interface NavigationItem {
-    label : String;
+    label : string;
     icon : React.ComponentType<any>;
-    href : String;
-    active : Boolean
+    href : string;
+    active : boolean
 }
 const Header : React.FC<HeaderProps> = ({showDahsboardNav = false}) => {
 
     const user = {
-        type :'patient'
+        type :'patient',
+        name : 'Abhishek Raj',
+        profilImage : '/placeholder.png',
+        email : 'support@medicare.com'
     }
-
+    const isAuthenticated = false
     const pathName = usePathname();
 
     const getDashboardNavigation = () : NavigationItem[] => {
@@ -65,8 +73,120 @@ const Header : React.FC<HeaderProps> = ({showDahsboardNav = false}) => {
                     <div className='w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center'>
                         <Stethoscope className='w-5 h-5 text-white'/>
                     </div>
+                    <div className='text-2xl font-bold bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-transparent'>
+                        MediCare+
+                    </div>
                 </Link>
+
+                {/* Dashboard Navigation  */}
+                {isAuthenticated && showDahsboardNav && (
+                    <nav className='hidden md:flex items-center space-x-6'>
+                        {getDashboardNavigation().map((item) => (
+                            <Link key={item.href} href={item.href} className={`flex items-center space-x-1 transition-colors ${item.active ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600'}`}>
+                                <item.icon className='w-4 h-4' />
+                                <span className='tect-sm font-medium'>{item.label}</span>
+                            </Link>
+                        ))}
+                    </nav>
+                )}
             </div>
+
+            {isAuthenticated && showDahsboardNav ? (
+                <div className='flex items-center space-x-4'>
+                    <Button variant='ghost' size='sm' className='relative cursor-pointer'>
+                        <Bell className='w-5 h-5' />
+                        <Badge className='absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 hover:bg-red-600'>5</Badge>
+                    </Button>
+
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button className='flex items-center space-x-2 px-2' variant='ghost'>
+                                <Avatar className='w-8 h-8'>
+                                    <AvatarImage src={user?.profilImage} alt={user.name}>
+                                        <AvatarFallback className='bg-blue-100 text-blue-600 text-sm font-semibold'>
+                                            {user.name?.charAt(0)?.toUpperCase()}
+                                        </AvatarFallback>
+                                    </AvatarImage>
+                                </Avatar>
+
+                                <div className='hidden md:block text-left'>
+                                    <p className='text-sm font-medium text-gray-900'>
+                                        {user.name}
+                                    </p>
+                                    <p className='text-xs text-gray-500 capitalize'>
+                                        {user.type}
+                                    </p>
+                                </div>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align='end' className='w-56'>
+                            <DropdownMenuLabel>
+                                <div className='flex items-center space-x'>
+                                    <Avatar className='w-8 h-8'>
+                                        <AvatarImage src={user?.profilImage} alt={user.name}>
+                                            <AvatarFallback className='bg-blue-100 text-blue-600'>
+                                                {user.name?.charAt(0)?.toUpperCase()}
+                                            </AvatarFallback>
+                                        </AvatarImage>
+                                    </Avatar>
+
+                                    <div className='flex-1 min-w-0'>
+                                        <p className='text-medium truncate'>
+                                            {user.name}
+                                        </p>
+                                        <p className='text-sm text-gray-500 truncate w-[140px]'>
+                                            {user.email}
+                                        </p>
+                                </div>
+                                </div>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator/>
+                            <DropdownMenuItem asChild>
+                                <Link href={`/${user.type}/profile`} className='flex items-center'>
+                                    <User className='w-4 h-4 mr-2' />
+                                    Profile
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator/>
+                            <DropdownMenuItem asChild>
+                                <Link href={`/${user.type}/profile`} className='flex items-center'>
+                                    <Settings className='w-4 h-4 mr-2' />
+                                    Settings
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+            ) : (
+                <div className='flex items-center space-x-3'>
+                    {!isAuthenticated ? (
+                        <>
+                            <Link href='/login/patient'>
+                            <Button variant='ghost' className='text-blue-900 font-medium hover:text-blue-700'>
+                                Log In
+                            </Button>
+                            </Link>
+                            <Link href='/signup/patient' className='hidden md:block'>
+                                <Button className='bg-gradient-to-r from-blue-600 to-blue-700 font-medium hover:text-blue-700 hover:from-blue-700 hover:blue-800 rounded-full px-6'>
+                                    Book Consultation
+                                </Button>
+                            </Link>
+                            </>
+                    ) : (
+                        <div className='flex items-center space-x-4'>
+                            <span className='hidden md:block text-sm text-gray-700 font-medium whitespace-nowrap'>
+                                Welcome,&nbsp;{user?.name}
+                            </span>
+
+                            <Link href={`${user?.type}/dashboard`}>
+                            <Button variant='ghost' className='text-blue-900 font-medium hover:text-blue-700'>
+                                Dashboard
+                            </Button>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     </header>
   )
