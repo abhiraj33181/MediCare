@@ -112,3 +112,27 @@ export const testimonials = [
     bgColor: "bg-chart-5/10"
 }
 ];
+
+export const faqs = [
+{
+    question: "How much does a doctor visit with MediCare+ cost?",
+    answer: "With insurance, you pay your copay based on your plan. We accept most plans, including Medicare. Without insurance, online doctor visits are $129. You can become a MediCare+ member and pay $44/visit. Membership is $55 for three months and $180 for a yearly membership."
+},
+{
+    question: "Do you accept health insurance?",
+    answer: "Yes, we accept most major health insurance plans including Medicare, BlueCross BlueShield, Aetna, United Healthcare, Cigna, Humana, and many others. We also accept FSA and HSA payments."
+},
+{
+    question: "What conditions can MediCare+ doctors treat?",
+    answer: "Our doctors can treat a wide range of conditions including cold and flu symptoms, allergies, skin conditions, mental health concerns, chronic condition management, and much more through virtual consultations."
+},
+{
+    question: "How quickly can I see a doctor?",
+    answer: "Many of our doctors are available for same-day appointments, and some offer immediate consultations. You can book appointments that fit your schedule, often within hours of your request."
+}
+];
+
+export const trustLogos = [
+"Business Insider", "CBS News", "CNBC", "Forbes", "Fortune", "Fox Business",
+"Healthline", "Inc.", "Men's Health", "TechCrunch", "The New York Times", "WSJ"
+];
