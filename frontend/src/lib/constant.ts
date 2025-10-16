@@ -81,3 +81,34 @@ export const specializations = [
   "Psychiatrist",
   "Ophthalmologist",
 ];
+
+export const testimonials = [
+{
+    rating: 5,
+    text: "Doctor was available right away, listened to my symptoms and prescribed the right medication. He made sure to explain the medicines and that was it. Very fast and easy.",
+    author: "Pat J.",
+    location: "From Texas",
+    bgColor: "bg-chart-1/10"
+},
+{
+    rating: 5,
+    text: "The doctor made me feel comfortable right away, very easy to ask about concerns I might have had and great feedback from my doctors.",
+    author: "Patrice P.",
+    location: "From New York",
+    bgColor: "bg-chart-2/10"
+},
+{
+    rating: 5,
+    text: "My doctor was very professional, thorough, and careful to ask me numerous relevant questions. She answered my questions not only in a detailed manner, but also in a way I could understand.",
+    author: "Betty M.",
+    location: "From Tennessee",
+    bgColor: "bg-chart-4/10"
+},
+{
+    rating: 5,
+    text: "It was quick & easy to book the appointment. I was able to get a PC appointment the next morning... within 12 hours! I connected and got my ongoing meds refilled. It was so nice for me living in a rural community.",
+    author: "Katherine M.",
+    location: "From California",
+    bgColor: "bg-chart-5/10"
+}
+];
