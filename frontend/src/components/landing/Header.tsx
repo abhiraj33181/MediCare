@@ -167,7 +167,7 @@ const Header : React.FC<HeaderProps> = ({showDahsboardNav = false}) => {
                             </Button>
                             </Link>
                             <Link href='/signup/patient' className='hidden md:block'>
-                                <Button className='bg-gradient-to-r from-blue-600 to-blue-700 font-medium hover:text-blue-700 hover:from-blue-700 hover:blue-800 rounded-full px-6'>
+                                <Button className='bg-gradient-to-r from-blue-600 to-blue-700 font-medium hover:text-white cursor-pointer hover:from-blue-700 hover:blue-800 rounded-full px-6'>
                                     Book Consultation
                                 </Button>
                             </Link>

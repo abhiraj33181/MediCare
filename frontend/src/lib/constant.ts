@@ -1,3 +1,5 @@
+import { Facebook, Instagram, Linkedin, Twitter ,Phone, Mail, MapPin, Video, Clock, FileText} from "lucide-react";
+
 export const healthcareCategories = [
   {
     id: 'primary-care',
@@ -136,3 +138,58 @@ export const trustLogos = [
 "Business Insider", "CBS News", "CNBC", "Forbes", "Fortune", "Fox Business",
 "Healthline", "Inc.", "Men's Health", "TechCrunch", "The New York Times", "WSJ"
 ];
+
+export const footerSections = [
+{
+    title: "Company",
+    links: [
+    { text: "About Us", href: "/about" },
+    { text: "Support Center", href: "/support" },
+    { text: "Contact Us", href: "/contact" }
+    ]
+},
+{
+    title: "For Healthcare",
+    links: [
+    { text: "Join as Doctor", href: "/signup/doctor" },
+    { text: "Doctor Resources", href: "/doctor-resources" },
+    ]
+},
+{
+    title: "For Patients",
+    links: [
+    { text: "Find Doctors", href: "/doctors" },
+    { text: "Book Appointment", href: "/signup/patient" },
+    ]
+},
+{
+    title: "Legal",
+    links: [
+    { text: "Privacy Policy", href: "/privacy" },
+    { text: "Terms of Service", href: "/terms" },
+    ]
+}
+];
+
+
+export const contactInfo = [
+{
+icon: Phone,
+text: "1-888-MEDICARE (1-888-633-4227)",
+},
+{
+icon: Mail,
+text: "support@medicare-plus.com",
+},
+{
+icon: MapPin,
+text: "Available across India",
+},
+];
+
+export const socials = [
+  { name: "twitter", icon: Twitter, url: "https://twitter.com/medicare-plus" },
+  { name: "facebook", icon: Facebook, url: "https://facebook.com/medicare-plus" },
+  { name: "linkedin", icon: Linkedin, url: "https://linkedin.com/company/medicare-plus" },
+  { name: "instagram", icon: Instagram, url: "https://instagram.com/medicare-plus"},
+]

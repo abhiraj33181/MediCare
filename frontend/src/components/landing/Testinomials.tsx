@@ -1,3 +1,4 @@
+'use client'
 import { testimonials } from '@/lib/constant'
 import React from 'react'
 import { Card, CardContent } from '../ui/card'
