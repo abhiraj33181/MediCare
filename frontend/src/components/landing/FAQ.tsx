@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Card, CardContent } from '../ui/card'
 
 function FAQ() {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(0)
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   return (
     <section className='py-16 px-4 sm:px-6 lg:px-8 bg-secondary/30'>
       <div className='nax-w-7xl mx-auto'>
@@ -14,7 +14,7 @@ function FAQ() {
           <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center'>
             {trustLogos.map((logo, index) => (
               <div key={index} className='flex items-center justify-center h-16 text-muted-foreground font-medium text-sm opacity-60 hover:opacity-80 transition-opacity duration-200'>
-                {logo}
+                <img src={logo} className='h-10 w-auto max-w-[120px] object-contain'/>
               </div>
             ))}
           </div>

@@ -135,8 +135,8 @@ export const faqs = [
 ];
 
 export const trustLogos = [
-"Business Insider", "CBS News", "CNBC", "Forbes", "Fortune", "Fox Business",
-"Healthline", "Inc.", "Men's Health", "TechCrunch", "The New York Times", "WSJ"
+"https://upload.wikimedia.org/wikipedia/commons/2/28/Business_Insider_Logo.png", "https://upload.wikimedia.org/wikipedia/commons/5/52/CBS_News_logo.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/CNBC_logo.svg/2560px-CNBC_logo.svg.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYDifNoGmPCktncfPW94aeUWyRDQ-Cv4KsZQ&s", "https://img-cdn.publive.online/fit-in/1200x675/afaqs/media/post_attachments/e437eb33c4409c0d1343c5257147f440376c3c78b073a2104b30bba3257b5fb4.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Fox_Business_%282%29.svg/330px-Fox_Business_%282%29.svg.png",
+"https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Healthline_logo.svg/2560px-Healthline_logo.svg.png", "https://upload.wikimedia.org/wikipedia/commons/f/f4/Inc._magazine_logo.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Men%27s_Health.svg/2560px-Men%27s_Health.svg.png", "https://strictlyvc.com/wp-content/uploads/2019/02/techcrunch-logo.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/NewYorkTimes.svg/1200px-NewYorkTimes.svg.png", "https://www.nicepng.com/png/detail/155-1550192_wall-street-journal-logo-png.png"
 ];
 
 export const footerSections = [
