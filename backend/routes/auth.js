@@ -4,6 +4,7 @@ import doctorModel from "../model/Doctor.js";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import patientModel from "../model/Patient.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -132,3 +133,47 @@ router.post(
         }
     }
 );
+
+
+
+
+// Google Oauth Start 
+
+router.get('/google', (req,res,next) => {
+    const userType = req.query.type || 'patient'
+
+    passport.authenticate('google', {
+        scope : ['profile', 'email'],
+        state : userType,
+        prompt : select_account
+    })(req,res,next)
+})
+
+
+router.get('/google/callback', passport.authenticate('google', {
+    session : false,
+    failureRedirect : '/auth/failure'
+}), async (req,res) => {
+    try {
+        const {user, type} = req.user;
+        const token = signToken(user._id, type);
+
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+        const redirectURL = `${frontendUrl}/auth/success?token${token}&type=${type}&users=${encodedURIComponent(JSON.stringify({
+            id: user._id,
+            name : user.name,
+            email : user.email,
+            profileImage : user.profileImage,
+        }))}`
+
+        res.redirect(redirectURL)
+    } catch (error) {
+        res.redirect(`${process.env.FRONTEND_URL}/auth/error?message${encodedURIComponent(error.message)}`)
+    }
+})
+
+router.get('/failure', (req,res) => {
+    res.badRequest('Google Authentication Failed')
+})
+
+export default router

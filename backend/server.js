@@ -6,6 +6,7 @@ import cors from 'cors'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import Response from './middlewares/response.js';
+import AuthRouter from './routes/auth.js'
 
 dotenv.config()
 
@@ -35,6 +36,12 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => {
     console.log("MongoDb Connection Error:: "+ err)
 })
+
+
+
+
+
+app.use('/api/auth', AuthRouter)
 
 
 app.get('/health', (req,res) => {
