@@ -34,7 +34,7 @@ function layout({children} : {children:React.ReactNode}) {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                     </div>
-                    <h2 className='text-4xl font-bold mb-4'>Welcome to MediCare+</h2>
+                    <h2 className='text-4xl font-bold mb-4'>Welcome to MedyGo+</h2>
                     <p className='text-xl opacity 90 mb-4'>Your health, our priority</p>
                     <p className='text-lg opacity-75'>
                         Connecting patients with certified healthcare providers for quality medical consultations.

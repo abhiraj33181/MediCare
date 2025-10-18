@@ -1,10 +1,11 @@
-import express from 'express';
+import express, { response } from 'express';
 import mongoose from 'mongoose';
 import helmet from 'helmet'
 import morgan from 'morgan';
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import Response from './middlewares/response.js';
 
 dotenv.config()
 
@@ -20,12 +21,26 @@ app.use(cors({
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
+app.use(Response)
+
+
+const PORT = process.env.PORT
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser : true,
+    useUnifiedTopology : true
+}).then(() => {
+    console.log('Connected to DB')
+})
+.catch(err => {
+    console.log("MongoDb Connection Error:: "+ err)
+})
+
 
 app.get('/health', (req,res) => {
     res.ok({time : new Date().toISOString()}, 'OK')
 })
 
-const PORT = process.env.PORT
 
 app.listen(PORT, ()=> {
     console.log(`Server Listening on ${PORT}`)
