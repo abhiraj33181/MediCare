@@ -1,4 +1,9 @@
 import express from 'express'
+import { body } from 'express-validator';
+import { computeAgeFromDOB } from '../utils/date.js';
+import patientModel from '../model/Patient.js'
+import { authenticate, requireRole } from '../middlewares/auth.js';
+import validate from '../middlewares/validate.js';
 
 const router = express.Router()
 
@@ -17,28 +22,35 @@ router.get('/me', authenticate, requireRole('doctor'), async (req, res) => {
 
 router.put('onboarding/update', authenticate, requireRole('doctor'), [
     body('name').optional().notEmpty(),
-    body('speacilization').optional().notEmpty(),
-    body('qualification').optional().notEmpty(),
-    body('category').optional().notEmpty(),
-    body('experience').optional().isInt({ min: 0 }),
-    body('fees').optional().isInt({ min: 0 }),
-    body('hospitalInfo').optional().isObject(),
-    body('availablityRange.startDate').optional().isISO8601(),
-    body('availablityRange.endDate').optional().isISO8601(),
-    body('availablityRange.excludeWeekdays').optional().isArray(),
-    body('dailyTimeRange').isArray({ min: 1 }),
-    body('dailyTimeRange.*.start').isString(),
-    body('dailyTimeRange.*.end').isString(),
-    body('slowDurationMinutes').optional().isInt({ min: 5, max: 180 })
+    body('phone').optional().isString(),
+    body('dob').optional().isISO8601(),
+    body('gender').optional().isIn(["male", "female", "other"]),
+    body('bloodGroup').optional().isIn(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]),
+
+    body('emergenecyContact').optional().isObject(),
+    body('emergenecyContact.name').optional().isString().notEmpty(),
+    body('emergenecyContact.phone').optional().isString().notEmpty(),
+    body('emergenecyContact.relationship').optional().isString().notEmpty(),
+
+    body('medicalHistory').optional().isObject(),
+    body('medicalHistory.allergies').optional().isString().notEmpty(),
+    body('medicalHistory.currentMedications').optional().isString().notEmpty(),
+    body('medicalHistory.chronicConditions').optional().isString().notEmpty(),
 ], validate, async (req, res) => {
     try {
         const updated = {...req.body};
+
+        if (uodated.dob){
+            updated.age = computeAgeFromDOB(updated.dob)
+        }
         delete updated.password;
         updated.isVerified = true;
-        const doc = await doctorModel.findByIdAndUpdate(req.user._id, updated, {new : true}).select('-password -googleId')
+        const patient = await patientModel.findByIdAndUpdate(req.user._id, updated, {new : true}).select('-password -googleId')
 
         res.ok('Profile Updated!!')
     } catch (error) {
         res.serverError("Updation Failed", [error.message])
     }
 })
+
+export default router;

@@ -3,11 +3,17 @@ import mongoose from 'mongoose';
 import helmet from 'helmet'
 import morgan from 'morgan';
 import cors from 'cors'
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 import Response from './middlewares/response.js';
+import bodyParser from 'body-parser';
 import AuthRouter from './routes/auth.js'
+import patientRouter from './routes/patient.js';
+import doctorRouter from './routes/doctor.js';
 
+import passport from './config/passport.js'
+import passportLib from 'passport'
+
+
+import dotenv from 'dotenv';
 dotenv.config()
 
 
@@ -23,6 +29,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
 app.use(Response)
+app.use(passportLib.initialize())
 
 
 const PORT = process.env.PORT
@@ -31,7 +38,7 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser : true,
     useUnifiedTopology : true
 }).then(() => {
-    console.log('Connected to DB')
+    console.log("🧠 Database connection established — all systems go!")
 })
 .catch(err => {
     console.log("MongoDb Connection Error:: "+ err)
@@ -39,9 +46,9 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 
-
-
 app.use('/api/auth', AuthRouter)
+app.use('/api/doctor', doctorRouter)
+app.use('/api/patient', patientRouter)
 
 
 app.get('/health', (req,res) => {
@@ -50,5 +57,5 @@ app.get('/health', (req,res) => {
 
 
 app.listen(PORT, ()=> {
-    console.log(`Server Listening on ${PORT}`)
+    console.log("\n\n🚀 Server started successfully at http://localhost:8080");
 })

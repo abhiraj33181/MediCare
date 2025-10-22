@@ -1,6 +1,7 @@
 import express from 'express'
+import { query, body } from 'express-validator'
 import doctorModel from '../model/Doctor.js'
-import validate from '../middlewares/validate'
+import validate from '../middlewares/validate.js'
 import { authenticate, requireRole } from '../middlewares/auth.js'
 
 
@@ -19,7 +20,7 @@ router.get('/list', [
     query('limit').optional().isInt({ min: 1, max: 100 }),
 ], validate, async (req, res) => {
     try {
-        const { search, speacilization, city, category, minFees, maxFees, sortBy = 'CreatedAt', sortOrder = 'desc', page = 1, limit = 20 } = req.query
+        const { search, speacilization, city, category, minFees, maxFees, sortBy = 'CreatedAt', sortOrder = 'desc', page = 1, limit = 20 } = req.query;
 
         const filter = { isVerified: true };
 
@@ -98,3 +99,5 @@ router.put('onboarding/update', authenticate, requireRole('doctor'), [
         res.serverError("Updation Failed", [error.message])
     }
 })
+
+export default router;

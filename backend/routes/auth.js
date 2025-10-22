@@ -1,5 +1,6 @@
 import express from "express";
 import validate from "../middlewares/validate.js";
+import { body } from "express-validator";
 import doctorModel from "../model/Doctor.js";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";

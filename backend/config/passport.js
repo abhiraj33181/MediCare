@@ -2,6 +2,7 @@ import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import doctorModel from "../model/Doctor.js";
 import patientModel from "../model/Patient.js";
+import dotenv from 'dotenv'
 
 dotenv.config();
 

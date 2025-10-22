@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
-import { stringify } from "querystring";
 import { computeAgeFromDOB } from "../utils/date.js";
 
 const emergenecyContactSchema = new mongoose.Schema(
@@ -10,7 +8,7 @@ const emergenecyContactSchema = new mongoose.Schema(
       required: true,
     },
     phone: {
-      type: stringify,
+      type: String,
       required: true,
     },
     relationship: {
@@ -83,7 +81,7 @@ const patientSchema = new mongoose.Schema(
     medicalHistory: medicalHistorySchema,
     isVerified : {
     type : Boolean,
-    default : False,
+    default : false,
   },
   },
   { timestamps: true }
@@ -96,4 +94,6 @@ patientSchema.pre("save", function (next) {
   next();
 });
 
-export default patientModel = mongoose.model("Patient", patientSchema);
+const patientModel = mongoose.model("Patient", patientSchema);
+
+export default patientModel;

@@ -90,12 +90,12 @@ const doctorSchema = new mongoose.Schema({
   availablityRange: availablityRangeSchema,
   dailyTimeRange : dailyTimeRangeSchema,
   slotDurationMinutes : {
-    type : number,
+    type : Number,
     default : 30
   },
   isVerified : {
     type : Boolean,
-    default : False,
+    default : false,
   }
 });
 
