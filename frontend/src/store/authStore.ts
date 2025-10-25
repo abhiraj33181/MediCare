@@ -1,5 +1,5 @@
 import { User } from '@/lib/types'
-import { getWithAuth, postWithoutAuth } from '@/services/httpService';
+import { getWithAuth, postWithoutAuth, putWithAuth } from '@/services/httpService';
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
@@ -54,7 +54,7 @@ export const useAuthStore = create<AuthState>()(
             try {
                 const response = await postWithoutAuth('/auth/doctor/login', {email, password})
                 get().setUser(response.data.user, response.data.token)
-            } catch (error) {
+            } catch (error:any) {
                 set({error : error.message})
                 throw error;
             }finally{
@@ -68,7 +68,7 @@ export const useAuthStore = create<AuthState>()(
             try {
                 const response = await postWithoutAuth('/auth/patient/login', {email, password})
                 get().setUser(response.data.user, response.data.token)
-            } catch (error) {
+            } catch (error:any) {
                 set({error : error.message})
                 throw error;
             }finally{
@@ -82,7 +82,7 @@ export const useAuthStore = create<AuthState>()(
             try {
                 const response = await postWithoutAuth('/auth/doctor/register', {data})
                 get().setUser(response.data.user, response.data.token)
-            } catch (error) {
+            } catch (error:any) {
                 set({error : error.message})
                 throw error;
             }finally{
@@ -96,7 +96,7 @@ export const useAuthStore = create<AuthState>()(
             try {
                 const response = await postWithoutAuth('/auth/patient/register', {data})
                 get().setUser(response.data.user, response.data.token)
-            } catch (error) {
+            } catch (error:any) {
                 set({error : error.message})
                 throw error;
             }finally{
@@ -109,14 +109,42 @@ export const useAuthStore = create<AuthState>()(
 
             try {
                 const {user} = get()
-                if (!user) throw new Error("No Usr Found!")
+                if (!user) throw new Error("No User Found!")
                 const endPoint = user.type === 'doctor' ? 'doctor/me' : 'patient/me';
                 
                 const response = await getWithAuth(endPoint)
                 set({user : {...user, ...response.data}})
-            } catch (error) {
-                
+                return response.data
+            } catch (error:any) {
+                set({error : error.message})
+                return null;
+            }finally{
+                set({loading : false})
+            }
+        },
+
+        updateProfile : async(data) => {
+            set({loading : true, error : null})
+            try {
+                const {user} = get()
+                if (!user) throw new Error("No User Found!")
+                const endPoint = user.type === 'doctor' ? 'doctor/onboarding/update' : 'patient/onboarding/update';
+
+                const response = await putWithAuth(endPoint , data)
+                set({user : {...user, ...response.data}})
+            } catch (error:any) {
+                set({error : error.message})
+                throw error;
+            }finally{
+                set({loading : false})
             }
         }
-    }))
+    }), {
+        name : 'auth-storage',
+        partialize : (state) => ({
+            user : state.user,
+            token : state.token,
+            isAuthenticated : state.isAuthenticated
+        })
+    })
 )

@@ -34,7 +34,7 @@ class HttpService {
         body?: any,
         auth: boolean = true,
         options?: RequestOptions,
-    ): Promise<ApiResponse<T> {
+    ): Promise<ApiRespone<T>> {
         try {
             const url = `${BASE_URL}/${endPoint}`;
             const headers = {
